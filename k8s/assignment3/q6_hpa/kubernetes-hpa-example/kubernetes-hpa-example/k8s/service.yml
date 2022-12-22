@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-example
+  labels:
+    app: node-example
+spec:
+  selector:
+    app: node-example
+  ports:
+  - port: 3001
+    targetPort: 3000
+    nodePort: 30012
+    protocol: "TCP"
+  type: NodePort

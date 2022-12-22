@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: init-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels: 
+      app: simpleapp-webapp
+  template:
+    metadata: 
+      name: init-pod
+      labels:
+        app: simpleapp-webapp
+    spec:
+      containers: 
+      - name: test-container
+        image: prakuldip/cloudethix_initcontainer_kuldip:v1
+        ports:
+        - containerPort: 80
+        volumeMounts: 
+        - name: work-volume
+          mountPath: /usr/share/nginx/html/
+      initContainers:
+      - name: init-container
+        image: busybox:1.28
+        command: 
+        - "wget"
+        - "-O"
+        - "/work-dir/index.html"
+        - "http://info.cern.ch"
+        volumeMounts: 
+        - name: work-volume
+          mountPath: /work-dir/
+      volumes:
+      - name: work-volume
+        emptyDir: {}    
+
+        
+  

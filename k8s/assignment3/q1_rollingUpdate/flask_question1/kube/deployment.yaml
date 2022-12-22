@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: flask-python-deployment
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels: 
+      app: flask-webapp
+  strategy: 
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata: 
+      name: python-pod
+      labels: 
+        app: flask-webapp
+    spec: 
+      containers: 
+      - name: python-container
+        image: prakuldip/flask_webapp_kuldip:v2
+        ports: 
+        - containerPort: 8080
+    
+
+
+        
+      
+      
+      

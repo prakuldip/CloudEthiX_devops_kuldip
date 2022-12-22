@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: python-helloworld
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: python-helloworld
+            image: prakuldip/cloudethix_cronjob_kuldip:v1
+          restartPolicy: OnFailure

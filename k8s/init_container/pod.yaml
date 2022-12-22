@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: cloudethix-init-container
+  labels: 
+    app: init-container
+spec: 
+  containers:
+  - name: nginx
+    image: nginx
+    ports: 
+    - containerPort: 80
+    volumeMounts:
+    - name: workdir
+      mountPath: /usr/share/nginx/html
+  initContainers:
+  - name: busybox
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c","echo '<html><h1>Hi If you see this it means init container runs succesfully</h1><html>' >> /work-dir/index.html"]
+    volumeMounts: 
+    - name: workdir
+      mountPath: /work-dir
+  volumes:
+  - name: workdir
+    emptyDir: {}

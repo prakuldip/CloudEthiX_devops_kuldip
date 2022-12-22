@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nginx-deployment
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: frontend-webapp
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: frontend-webapp
+    spec:
+      containers:
+      - name: nginx-container
+        image: prakuldip/cloudethix_configmap_kuldip:v1
+        ports:
+        - containerPort: 80
+        volumeMounts: 
+          - name: indexfile-dir
+            mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: indexfile-dir
+        configMap:
+          name: index-configmap

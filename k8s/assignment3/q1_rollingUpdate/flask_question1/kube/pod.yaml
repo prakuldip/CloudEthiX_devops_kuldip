@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: python-pod
+  labels: 
+    app: flask-webapp
+spec: 
+  containers: 
+  - name: python-container
+    image: prakuldip/flask_webapp_kuldip:v2
+    ports: 
+    - containerPort: 8080
